@@ -1,0 +1,4 @@
+PORT=3001
+DB_NAME=inst
+DB_USER=admin
+DB_PASS=123
