@@ -1,11 +1,8 @@
-//import { useContext } from 'react';
-// import { TaskContext } from '../contexts/TaskContext.js';
 import { useDispatch } from 'react-redux';
 import { addTask } from '../redux/actions/taskAction';
 import { useState } from 'react';
 
 const Form = () => {
-  //  const { submitHandler, inputHandler } = useContext(TaskContext);
 const [input, setInput] = useState('');
 const [taskId, setTaskId] = useState(0);
 const dispatch = useDispatch();
@@ -23,7 +20,6 @@ const submitHandler = (e) => {
       obj['completed'] = false;
       setTaskId((prev)=>prev + 1);
       obj['id'] = taskId;
-      // setTasks((prev)=>[...prev, obj]);
       dispatch(addTask(obj));      
       document.getElementById('taskTitle').value = '';
     }

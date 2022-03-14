@@ -1,17 +1,11 @@
-// import { useContext } from 'react';
-// import { TaskContext } from '../contexts/TaskContext.js';
 import { useDispatch } from 'react-redux';
 import { deleteTask, editTask, updateTask } from '../redux/actions/taskAction';
 
 const Task = ({task, taskId}) => {
-  // const { deleteHandler, checkHandler, editHandler } = useContext(TaskContext);
 const dispatch = useDispatch();
   
    const deleteHandler = (e) => {
     e.preventDefault();
-    // let tasks = JSON.parse(JSON.stringify(tasks));
-    // tasks2 = tasks2.filter(el=>+el.id !== +e.target.id);
-    // setTasks(tasks2);
     dispatch(deleteTask(e.target.id));
   };
 
@@ -20,27 +14,13 @@ const dispatch = useDispatch();
     checkId = checkId.split('-')[1];
     const taskName = document.getElementById('title-' + checkId);
     taskName.classList.toggle('crossed');
-
-    // const tasks2 = tasks;
-    // for (let i = 0; i < tasks2.length; i++){
-    //   if(tasks2[i].id === checkId) {
-    //     tasks2[i].completed = !tasks[i].completed;
-    //   }
-    // }
-    // setTasks(tasks2);
     dispatch(updateTask(checkId));
   };
 
   const editHandler = (e) => {
     const editId = e.target.id.split('-')[1];
-    // const tasks2 = JSON.parse(JSON.stringify(tasks));
-    // for (let i = 0; i < tasks2.length; i++){
-    //   if(+tasks2[i].id === +editId) {
-    //     tasks2[i].task = e.target.value;
-    //   }
-    // }
-    // setTasks(tasks2);
-    dispatch(editTask(editId, e.target.value));
+    const title = e.target.value;
+    dispatch(editTask(editId, title));
   };
 
 

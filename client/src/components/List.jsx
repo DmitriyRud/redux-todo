@@ -1,13 +1,8 @@
-//import { useContext } from 'react';
-//import { TaskContext } from '../contexts/TaskContext.js';
 import Task from './Task.jsx';
-//import { allTasks } from '../redux/actions/taskAction';
 import { useSelector } from 'react-redux';
 
 
 const List = () => {
-// const { tasks } = useContext(TaskContext);
-//  const dispatch = useDispatch();
   const tasks = useSelector((store) => store.tasks);
 
   return (
