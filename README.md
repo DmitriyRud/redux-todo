@@ -1,7 +1,5 @@
 # Simple ToDo React/Redux application
 
 Technologies used:
-JavaScript, React, Redux, HTML, CSS, Node.JS
+JavaScript, React, Redux, thunk, HTML, CSS, Node.JS, PostgreSQL, sequelize, sequelize-cli
 
-Status:
-In progress...

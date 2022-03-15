@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
-import { addTask } from '../redux/actions/taskAction';
+//import { addTask } from '../redux/actions/taskAction';
+import { addTaskAC } from '../redux/thunk/addTaskAC';
 import { useState } from 'react';
 
 const Form = () => {
@@ -12,28 +13,11 @@ const inputHandler = (e) => {
   setInput(e.target.value);
 };
  
-const submitHandler = async (e) => {
+const submitHandler = (e) => {
     e.preventDefault();
     if (input !== '') {
-      let obj = {};
-      obj['task'] = input;
-      obj['completed'] = false;
-      setTaskId((prev)=>prev + 1);
-      obj['id'] = taskId;
-
-      const response = await fetch('/tasks/add', {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify(obj)
-      });
-      if (response.ok){
-        const result = await response.json();
-        //console.log(result);
-        dispatch(addTask(result));      
-        }
-
+      setTaskId((prev) => prev + 1);
+      dispatch(addTaskAC(input, taskId));
       document.getElementById('taskTitle').value = '';
     }
   };

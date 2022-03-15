@@ -1,7 +1,6 @@
 import Task from './Task.jsx';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-//import { addTask } from '../redux/actions/taskAction.js';
 import useFetch from '../hooks/useFetch.js';
 import { allTasks } from '../redux/actions/taskAction.js';
 

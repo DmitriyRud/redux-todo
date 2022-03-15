@@ -1,7 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteTask, editTask, updateTask } from '../redux/actions/taskAction';
+import { editTask } from '../redux/actions/taskAction';
 import { useEffect, useState } from 'react';
 import useFetch from '../hooks/useFetch.js';
+import { checkHandlerAC } from '../redux/thunk/checkHandlerAC';
+import { deleteHandlerAC } from '../redux/thunk/deleteHandlerAC';
 
 const Task = ({ task, taskId, checked, crossed }) => {
   const dispatch = useDispatch();
@@ -12,33 +14,18 @@ const Task = ({ task, taskId, checked, crossed }) => {
   useEffect(() => {
     const result = ownFetch(`/tasks/${taskId}/rename`, 'PATCH', {'Content-type': 'application/json'}, JSON.stringify({ title }));
       dispatch(editTask(result.id, result.title));
-
-  }, [title]);
+  }, [title, dispatch]);
 
   const deleteHandler = async (e) => {
     e.preventDefault();
-    const response = await fetch(`/tasks/${e.target.id}`, {
-      method: 'DELETE'
-    });
-    if (response.ok) {
-      dispatch(deleteTask(e.target.id));
-    }
+    dispatch(deleteHandlerAC(e));
   };
 
-  const checkHandler = async (e) => {
-    let checkId = e.target.id;
-    checkId = checkId.split('-')[1];
-    const taskName = document.getElementById('title-' + checkId);
-    taskName.classList.toggle('crossed');
-    const response = await fetch(`/tasks/${checkId}`, {
-      method: 'PATCH'
-    });
-    if (response.ok) {
-      dispatch(updateTask(checkId));
-    }
+  const checkHandler = (e) => {
+    dispatch(checkHandlerAC(e));
   };
 
-  const editHandler = async (e) => {
+  const editHandler = (e) => {
     setTitle(e.target.value);
   };
 

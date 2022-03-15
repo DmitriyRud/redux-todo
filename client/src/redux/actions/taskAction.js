@@ -22,7 +22,10 @@ export const updateTask = (task) => {
 export const editTask = (task, title) => {
   return {
     type: 'EDIT TASK',
-    payload: {task, title},
+    payload: {
+      task,
+      title
+    },
   };
 };
 
@@ -32,3 +35,5 @@ export const deleteTask = (id) => {
     payload: id,
   };
 };
+
+
