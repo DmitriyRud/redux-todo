@@ -1,10 +1,21 @@
 import Task from './Task.jsx';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+//import { addTask } from '../redux/actions/taskAction.js';
+import useFetch from '../hooks/useFetch.js';
+import { allTasks } from '../redux/actions/taskAction.js';
 
 
 const List = () => {
-  const tasks = useSelector((store) => store.tasks);
+  const ownFetch = useFetch();
+  const dispatch = useDispatch();
+  let tasks;
+  useEffect(() => {
+    ownFetch('/tasks').then((data) => dispatch(allTasks(data.tasks)));
+  }, []);
+  tasks = useSelector((store) => store.tasks);
 
+ 
   return (
     <div className="display">
       <div className="header">
@@ -12,9 +23,17 @@ const List = () => {
       </div>
       <div className="list">
         <ul className="list-group">
-          {tasks.map((el)=>(
-            <Task key={el.id} taskId={"" + el['id']} task={el.task}/>
-          )
+          {tasks.map((el) => {
+            if (el.completed) {
+              return (
+                <Task key={el.id} taskId={el['id']} task={el.title} crossed='task-name crossed' checked={true} />
+              )
+            } else {
+              return (
+                <Task key={el.id} taskId={el['id']} task={el.title} crossed='task-name' checked={false}/>
+              )
+            }
+          }
           )}
         </ul>
       </div>

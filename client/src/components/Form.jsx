@@ -12,7 +12,7 @@ const inputHandler = (e) => {
   setInput(e.target.value);
 };
  
-const submitHandler = (e) => {
+const submitHandler = async (e) => {
     e.preventDefault();
     if (input !== '') {
       let obj = {};
@@ -20,7 +20,20 @@ const submitHandler = (e) => {
       obj['completed'] = false;
       setTaskId((prev)=>prev + 1);
       obj['id'] = taskId;
-      dispatch(addTask(obj));      
+
+      const response = await fetch('/tasks/add', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(obj)
+      });
+      if (response.ok){
+        const result = await response.json();
+        //console.log(result);
+        dispatch(addTask(result));      
+        }
+
       document.getElementById('taskTitle').value = '';
     }
   };
